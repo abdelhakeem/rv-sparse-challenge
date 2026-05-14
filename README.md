@@ -6,7 +6,7 @@ Solution for coding challenge in RV-Sparse ([merledu/rv-sparse](https://github.c
 
 The `sparse_multiply` function converts row-major matrix `A` into _Compressed Sparse Row (CSR)_ format and computes its matrix-vector product with `x` using the CSR data:
 
-https://github.com/abdelhakeem/rv-sparse-challenge/blob/8c54c4304a5d89ce72ab456e3a6b7476667c2b1a/challenge.c#L9-L19
+https://github.com/abdelhakeem/rv-sparse-challenge/blob/baac6130d988bb9b7cc9c1a7d23ad6dc338db864/challenge.c#L9-L19
 
 **CSR matrix format consists of three arrays:**
 
