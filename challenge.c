@@ -19,14 +19,33 @@ void sparse__multiply(
 );
 
 // =========================================================
-// TODO: USER IMPLEMENTATION
+// USER IMPLEMENTATION
 // =========================================================
 void sparse_multiply(
     int rows, int cols, const double* A, const double* x,
     int* out_nnz, double* values, int* col_indices, int* row_ptrs,
     double* y
 ) {
-    // TODO
+    *out_nnz = 0;
+    row_ptrs[0] = 0;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            double a_ij = A[i * cols + j];
+            if (a_ij != 0.0) {
+                values[*out_nnz] = a_ij;
+                col_indices[*out_nnz] = j;
+                ++*out_nnz;
+            }
+        }
+        row_ptrs[i + 1] = *out_nnz;
+    }
+
+    for (int r = 0; r < rows; ++r) {
+        y[r] = 0.0;
+        for (int p = row_ptrs[r]; p < row_ptrs[r + 1]; ++p) {
+            y[r] += values[p] * x[col_indices[p]];
+        }
+    }
 }
 
 // =========================================================
@@ -34,7 +53,7 @@ void sparse_multiply(
 // =========================================================
 int main(void) {
     srand(time(NULL));
-    
+
     const int num_iterations = 100;
     int passed_count = 0;
 
@@ -42,7 +61,7 @@ int main(void) {
         int rows = rand() % 41 + 5;
         int cols = rand() % 41 + 5;
         double density = 0.05 + (rand() / (double) RAND_MAX) * 0.35;
-        
+
         size_t mat_sz = (size_t) rows * cols;
 
         double* A = calloc(mat_sz, sizeof(double));
@@ -108,6 +127,6 @@ int main(void) {
         passed_count == num_iterations ? "All tests passed!" : "Some tests failed.",
         passed_count, num_iterations
     );
-           
+
     return passed_count == num_iterations ? 0 : 1;
 }
