@@ -6,7 +6,7 @@
 // =========================================================
 // FUNCTION PROTOTYPE
 // =========================================================
-void sparse__multiply(
+void sparse_multiply(
     int rows,
     int cols,
     const double* A,
